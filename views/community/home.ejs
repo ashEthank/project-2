@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include('../partials/head.ejs'); %>
+    <%- include('../partials/headerStyle.ejs'); %>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+        width: 100%;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        text-align: center;
+        line-height: normal;
+        align-items: center;
+        margin: 10px 75px;
+        width: 32%;
+      }
+      .card img {
+        width: 100%;
+      }
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+      }
+      button {
+        border: 2px solid black;
+        color: black;
+        margin: 10px 10px;
+        width: 150px;
+      }
+      button:hover {
+        border: 2px solid red;
+        color: red;
+        margin: 10px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/header.ejs'); %>
+    <div class="container">
+        <% for (let index of activities) { %>
+          <div class="card">
+              <h2><%= index.title; %></h2><br>
+              <p><%= index.location; %></p><br>
+              <img src="<%= index.imageURL; %>"><br>
+              <%= index.textArea; %><br>
+              <button type="button" onclick="window.location.href='/activities/edit/<%= index._id; %>'" name="button">Edit</button>
+          </div>
+       <% } %>
+    </div>
+    <footer>
+      <button type="button" onclick="window.location.href='/activities/new'" name="button">New</button>
+    </footer>
+  </body>
+</html>
