@@ -7,7 +7,7 @@ const app = express ();
 const db = mongoose.connection;
 require('dotenv').config();
 const PORT = process.env.PORT || 3003;
-const mongodbURI = process.env.mongodbURI
+const MONGODB_URI = process.env.MONGODB_URI
 
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended: true}));
@@ -18,7 +18,7 @@ app.use(session({
 }))
 
 mongoose.connect(
-  mongodbURI,
+  MONGODB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,7 +27,7 @@ mongoose.connect(
   });
 
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
-db.on('connected', () => console.log('mongo connected: ', mongodbURI));
+db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 const activitiesController = require('./controllers/activities_controller.js')
@@ -38,10 +38,6 @@ app.use('/users', usersController)
 
 const sessionsController = require('./controllers/sessions_controller.js')
 app.use('/sessions', sessionsController)
-
-app.get('/' , (req, res) => {
-  res.send('Hello World!');
-});
 
 app.get('/account', (req, res) => {
   res.render('./community/account.ejs')
